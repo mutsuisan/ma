@@ -1,0 +1,64 @@
+<html>
+
+<head>
+  <title>WebGL</title>
+  <!-- vertex Shader -->
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    #version 300 es
+    precision mediump float;
+
+    // Supplied vertex position attribute
+    in vec3 aVertexPosition;
+
+    void main(void) {
+      // Set the position in clipspace coordinates
+      gl_Position = vec4(aVertexPosition, 1.0);
+    }
+  </script>
+
+  <!-- fragment Shader -->
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    #version 300 es
+    precision mediump float;
+
+    // Color that is the result of this shader
+    out vec4 fragColor;
+
+    void main(void) {
+      // Set the result as red
+      fragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+  </script>
+  <script type="text/javascript" src="./src/uitls.js"></script>
+</head>
+
+<canvas id="webgl-canvas" width="800" height="600"></canvas>
+
+<script type="text/javascript">
+  'use strict';
+
+  let gl, squareVertexBuffer, squareIndexBuffer, program, indices;
+
+  function init() {
+    const canvas = getCanvas('webgl-canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    gl = getWebGLContext(canvas);
+    if (!gl) {
+      alert('Failed to get the rendering context for WebGL');
+      return;
+    }
+
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+    initProgram()
+    const buffers = initBuffers();
+    draw();
+  }
+
+  window.onload = init;
+
+</script>
+
+</htmlj>
