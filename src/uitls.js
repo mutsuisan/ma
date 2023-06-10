@@ -48,14 +48,26 @@ function getShader(id) {
 }
 
 function initBuffers() {
+  // 正方形
+  // const vertiecs = [
+  //   -0.5, 0.5, 0,
+  //   -0.5, -0.5, 0,
+  //   0.5, -0.5, 0,
+  //   0.5, 0.5, 0,
+  // ]
+  // 五角形
   const vertiecs = [
-    -0.5, 0.5, 0,
-    -0.5, -0.5, 0,
-    0.5, -0.5, 0,
-    0.5, 0.5, 0,
+    0, 0.8, 0,
+    0.5, 0.2, 0,
+    0.3, -0.7, 0,
+    -0.3, -0.7, 0,
+    -0.5, 0.2, 0,
   ]
 
-  indices = [0, 1, 2, 0, 2, 3]
+  // 正方形
+  // indices = [0, 1, 2, 0, 2, 3]
+  // 五角形
+  indices = [0, 1, 2, 0, 2, 3, 0, 3, 4]
 
   squareVertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
