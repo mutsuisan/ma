@@ -69,14 +69,21 @@ function initBuffers() {
   // 五角形
   indices = [0, 1, 2, 0, 2, 3, 0, 3, 4]
 
-  squareVertexBuffer = gl.createBuffer();
+  squareVAO = gl.createVertexArray();
+  gl.bindVertexArray(squareVAO);
+
+  const squareVertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertiecs), gl.STATIC_DRAW);
+
+  gl.enableVertexAttribArray(program.aVertexPosition);
+  gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
   squareIndexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
   gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
 
+  gl.bindVertexArray(null);
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
 }
@@ -103,13 +110,15 @@ function draw() {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
-  gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-  gl.enableVertexAttribArray(program.aVertexPosition);
+  gl.bindVertexArray(squareVAO);
+  // gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+  // gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+  // gl.enableVertexAttribArray(program.aVertexPosition);
 
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
   gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 
+  gl.bindVertexArray(null);
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
 }
